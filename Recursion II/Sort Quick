@@ -1,0 +1,57 @@
+class Solution {
+void merge(vector<int>& a,long long int s, long long int m , long long int e)
+{
+	long long int s1 = m-s+1 ;
+	long long int s2 = e-m ;
+	long long int la[s1+1];
+	long long int ra[s2+1];
+	long long int i;
+	la[s1]=INT_MAX;
+	ra[s2]=INT_MAX;
+	
+	for(i=0;i<s1;i++)
+		la[i]=a[s+i];
+	for(i=0;i<s2;i++)
+		ra[i]=a[m+i+1];
+	
+	int j=0,k=0;
+	for(i=s;i<=e;i++)
+	{
+		if(la[j] < ra[k])
+		{
+			a[i]=la[j++];
+		}
+		else
+		{
+			a[i]=ra[k++];
+		}
+	}
+	
+	// cout<<"temp array= "<<endl;
+	// for(i=s;i<=e;i++)
+	// 	cout<<a[i]<<" ";
+	// cout<<endl;
+}
+
+void ms(vector<int>& a,long long int s,long long int e)
+{
+	if(s<e)
+	{
+		int m = (s+e)/2;
+		//cout<<"call1= "<<s<<" "<<m<<endl;
+		ms(a,s,m);
+		//cout<<"callout1= "<<s<<" "<<m<<endl;
+		//cout<<"call2= "<<m+1<<" "<<e<<endl;
+		ms(a,m+1,e);
+		//cout<<"call2out= "<<m+1<<" "<<e<<endl;
+		//cout<<"callmerge= "<<s<<" "<<m<<" "<<e<<endl;
+		merge(a,s,m,e);
+	}
+}
+public:
+    vector<int> sortArray(vector<int>& a) {
+        int n =a.size();
+        ms(a,0,n-1);
+        return a;
+    }
+};

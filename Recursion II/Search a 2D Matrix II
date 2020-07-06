@@ -1,0 +1,35 @@
+class Solution {
+    int n,m,flag=0;
+    bool search(vector<vector<int>>& a,int i ,int j, int find)
+    {
+        while(i<n &&j>=0)
+        {
+            if(a[i][j] < find)
+            {
+                //cout<<" < "<<a[i][j]<<endl;
+                i=i+1;
+            }
+            else if(a[i][j] > find)
+            {
+                //cout<<" > "<<a[i][j]<<endl;
+                j= j-1 ;
+            }
+            else if(a[i][j] == find)
+            {
+                //cout<<" = "<<a[i][j]<<endl;
+                flag = 1;
+                break;
+            }
+        }
+        return flag;
+    }
+public:
+    bool searchMatrix(vector<vector<int>>& a, int find) {
+        n=a.size();
+        if(n==0) return 0;
+        m=a[0].size();
+        if(n==0||m==0) return 0;
+        int i=0,j=m-1;
+        return search(a,i,j,find);
+    }
+};

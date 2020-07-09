@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define T ll t; cin>>t; while(t--)
+using namespace std;
+#define speed ios_base::sync_with_stdio(0)
+#define endl "\n"
+int n = 4;
+char queen[4][4];
+
+int call(int r,int c)
+{
+	for(int i=0;i<r;i++)
+		if(queen[i][c]=='q')
+			return 0;
+	// diagonal  \ wala
+	for(int i=r,j=c;i>=0&&j>=0;i--,j--)
+	{
+		if(queen[i][j]=='q')
+			return 0;
+	}
+	// diagonal  / wala
+	for(int i=r,j=c;i>=0&&j<n ;i--,j++)
+	{
+		if(queen[i][j]=='q')
+			return 0;
+	}	
+		
+	return 1;
+}
+void queenfun(int r)
+{
+	if(r==n)
+	{
+		for(int i=0;i<n;i++)
+		{
+			for(int j=0;j<n;j++)
+			{
+				cout<<queen[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+		cout<<endl;
+		return ;
+	}
+	for(int i=0;i<n;i++)
+	{
+		cout<<"r= "<<r<<" "<<i<<endl;
+		if(call(r,i))
+		{
+			queen[r][i] = 'q';
+			queenfun(r+1);
+			queen[r][i] = '-';
+			cout<<"out"<<endl;
+		}
+	}
+}
+
+int main()
+{
+	cout<<"start"<<endl;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			queen[i][j]='-';
+		}
+		
+	}
+	queenfun(0);
+	return 0;
+}

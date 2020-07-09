@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define T ll t; cin>>t; while(t--)
+using namespace std;
+#define speed ios_base::sync_with_stdio(0)
+#define endl "\n"
+
+
+int print(int n,int m,vector<vector<int>> &sol)
+{
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<m;j++)
+		{
+			cout<<sol[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+}
+
+int issafe(vector<vector<int>> &a,int x,int y,int n,int m)
+{
+	return (x>=0&&x<n&&y>=0&&y<m&&a[x][y]==1);
+}
+
+
+int solve(vector<vector<int>> &a,int x,int y,int n,int m,vector<vector<int>> &sol)
+{
+	if(x==n-1&&y==m-1&&a[x][y]==1)
+	{
+		sol[x][y]=1; 
+		cout<<"in"<<endl;
+		return 1;
+	}
+	if(issafe(a,x,y,n,m))
+	{
+		sol[x][y]=1;
+		if(solve(a,x+1,y,n,m,sol)==1)
+			return 1;
+		if(solve(a,x,y+1,n,m,sol)==1)
+			return 1;
+			
+		sol[x][y]=0;
+		//cout<<x<<" "<<y<<"endd"<<endl;
+		return 0;
+	}
+	//cout<<x<<" "<<y<<"out"<<endl;
+	return 0;
+}
+
+
+int main()
+{
+	speed;
+	T
+	{
+		ll n,m;
+		cin>>n>>m;
+		vector<vector<int>> a;
+		for(int i=0;i<n;i++)
+		{
+			vector<int> x;
+			for(int j=0;j<m;j++)
+			{
+				int temp;
+				cin>>temp;
+				x.push_back(temp);
+			}
+			a.push_back(x);
+		}
+		vector<vector<int>> sol(n,vector<int>(m,0));
+		if(solve(a,0,0,n,m,sol)==0)
+		{
+			cout<<"NO SOL"<<endl;
+		}
+		else	
+			print(n,m,sol);	
+	
+	}
+return 0;
+}

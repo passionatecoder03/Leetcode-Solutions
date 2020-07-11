@@ -1,0 +1,35 @@
+class Solution {
+    vector<vector<int> > ans;
+    vector<int>  x;
+    void dfs(TreeNode* tp)
+    {
+
+                x.push_back(tp->val);
+                cout<<tp->val<<endl;
+                if(tp->left!=NULL)
+                    dfs(tp->left);
+                //x.pop_back();
+                if(tp->right!=NULL)
+                    dfs(tp->right);
+            if(tp->right==NULL&&tp->left==NULL)
+            {
+                cout<<"in"<<endl;
+                ans.push_back(x);
+            }
+                x.pop_back();
+     }
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        dfs(root);
+        cout<<"ans"<<endl;
+        for(int i=0;i<ans.size();i++)
+        {
+            for(int j=0;j<ans[i].size();j++)
+            {
+                cout<<ans[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+        return root;
+    }
+};

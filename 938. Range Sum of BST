@@ -1,0 +1,17 @@
+class Solution {
+    int sum=0;
+public:
+    int rangeSumBST(TreeNode* root, int l, int r) {
+        if(root)
+        {
+            if(root->val>=l&&root->val<=r)
+                sum=sum+root->val;
+            cout<<root->val<<" ";
+            if(l < root->val)
+                rangeSumBST(root->left,l,r);
+            if(root->val < r)
+                 rangeSumBST(root->right,l,r);
+        }
+        return sum;
+    }
+};

@@ -1,0 +1,21 @@
+class Solution {
+    int k =1;
+    int maxDepth(TreeNode* root) {
+            if(!root) return 0;
+            if(!root->left&&!root->right) return 1;
+            int l=maxDepth(root->left);
+            int r=maxDepth(root->right);
+                int g = abs(l-r) ;
+        
+        if(g>=2)
+            k=0;
+        
+            return max(l,r)+1;
+    }
+    
+public:
+    bool isBalanced(TreeNode* root) {
+        maxDepth(root);
+        return k;
+    }
+};

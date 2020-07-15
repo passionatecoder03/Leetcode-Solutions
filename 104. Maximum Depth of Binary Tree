@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        return max(maxDepth(root->left),maxDepth(root->right))+1;
+    }
+};
+
+
+////////////////////////////////////////////////////////////
+
+class Solution {
+    int mdepth=0;
+    int fun(TreeNode* root)
+    {
+        if(!root) return 0;
+            
+           int l = fun(root->left);
+           int r = fun(root->right);
+        return max(l,r)+1;
+    }
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        return fun(root);
+    }
+};
+///////////////////////////////////////////////////////////

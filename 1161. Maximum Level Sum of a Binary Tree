@@ -1,0 +1,45 @@
+class Solution {
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        return max(maxDepth(root->left),maxDepth(root->right))+1;
+    }
+    void bfs(TreeNode* root,vector<vector<int>> &ans,int l)
+    {
+        if(root)
+        {
+            ans[l].push_back(root->val);
+            bfs(root->left,ans,l+1);
+            bfs(root->right,ans,l+1);
+        }
+    }
+    
+public:
+    int maxLevelSum(TreeNode* root) {
+        
+        vector<vector<int>> ans;
+        vector<int> a;
+        int md = maxDepth(root);
+            //cout<<md<<endl;
+        ans.resize(md);
+        bfs(root , ans,0);
+        int msum=INT_MIN,ml=0;
+        for(int i=0;i<md;i++)
+        {
+            int tm=0;
+            for(int j=ans[i].size()-1;j>=0;j--)
+            {
+                //cout<<ans[i][j]<<" ";
+                tm = tm + ans[i][j] ;
+            }
+            if(tm > msum)
+            {
+                msum=tm;
+                ml=(i+1);
+            }
+                
+            //cout<<tm<<endl;
+        }
+        
+        return ml;
+    }
+};

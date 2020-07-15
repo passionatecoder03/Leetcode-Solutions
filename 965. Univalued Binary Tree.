@@ -1,0 +1,25 @@
+class Solution {
+    int val,flag=1;
+    bool fun(TreeNode* root)
+    {
+        //cout<<root->val<<endl;
+        if(root&&flag)
+        {
+            if(root->val!=val) 
+            {
+                //cout<<"in"<<endl;
+                flag=0; 
+                return 0;
+            }
+             fun(root->left);
+             fun(root->right);
+        }
+        return flag;
+    }
+public:
+    bool isUnivalTree(TreeNode* root) {
+        if(root==NULL||(root->left==NULL&&root->right==NULL)) return 1;
+        val=root->val;
+        return fun(root);
+    }
+};

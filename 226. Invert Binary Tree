@@ -1,0 +1,20 @@
+class Solution {
+public:
+   TreeNode* invertTree(TreeNode* A) {
+    if(!A) return A;
+     queue<TreeNode*> q;
+     q.push(A);
+     
+     while(!q.empty())
+     {
+         TreeNode* p = q.front();
+         q.pop();
+         swap(p->left,p->right);
+         
+         if(p->left!=NULL) q.push(p->left);
+         if(p->right!=NULL) q.push(p->right);
+     }
+     
+     return A;
+}
+};

@@ -1,0 +1,142 @@
+class Solution {
+    TreeNode *start=NULL;
+vector<struct TreeNode *> li;
+set<vector<string> >s;
+vector<string> v;
+void fun(TreeNode* root)
+    {
+        queue<TreeNode* > q;
+        
+        if(root!=NULL)
+        {
+            q.push(root);
+            // cout<<tp->val<<endl;
+            //q.pop();
+            vector<int> an;
+            queue<TreeNode* > nq;
+            while(q.empty()==false)
+            {
+                TreeNode* tp = q.front();
+                if(tp->val==100001)
+                	v.push_back("null");
+                else
+                	v.push_back(to_string(tp->val));
+                
+                //cout<<tp->val<<endl;
+                q.pop();
+               
+                if(tp->left!=NULL)
+                {
+                    nq.push(tp->left);
+                }
+                if(tp->left!=NULL&&tp->right==NULL)
+                 {
+                     TreeNode* nod =new TreeNode();
+                     nod->val=100001;
+                     nq.push(nod);
+                 } 
+                if(tp->left==NULL&&tp->right!=NULL)
+                 {
+                     TreeNode* nod =new TreeNode();
+                     nod->val=100001;
+                     nq.push(nod);
+                 }
+                if(tp->right!=NULL)
+                {
+                    nq.push(tp->right);   
+                }
+                 
+                
+                if(q.empty())
+                {
+                    //cout<<"swap"<<endl;
+                    while(!nq.empty())
+                    {
+                        TreeNode* temp = nq.front();
+                        q.push(temp);
+                        nq.pop();
+                    }
+
+                }
+            }
+        }
+        else
+        {
+            return ;
+        }
+}     
+void consttree(int n, TreeNode *start)
+{
+	if(start->right==NULL && start->val < n) 
+	{
+		start->right= new TreeNode();
+		start->right->val=n;
+		//cout<<"rig "<<start->right->val<<endl;
+	}
+	else if(start->left==NULL && start->val >= n) 
+	{
+		start->left= new TreeNode();
+		start->left->val=n;
+		//cout<<"lef "<<start->left->val<<endl;
+	}
+	else
+	{
+		//cout<<"out "<<start->val<<endl;
+		if(start->val < n)
+			consttree(n,start->right);
+		else
+			consttree(n,start->left);
+	}
+}
+void cons(int a[],int n)
+{
+	int c=0;
+	for(int i=0;i<n;i++)
+	{
+		c++;
+		if(a[i]==100000) break;	
+		if(n!=100000&&c==1)
+		{
+			start = new TreeNode();
+			start->val = a[i];
+		}
+		else
+			consttree(a[i],start);
+	}
+}
+
+void fp(int a[], int n) 
+{ 
+    sort(a, a + (n-1));
+    do { 
+        cons(a,n);
+	    fun(start);	
+//        cout<<endl;
+//		li.push_back(start);
+		int x=s.size();
+		s.insert(v);
+		int y=s.size();
+		//cout<<"x and y "<<x<<" "<<y<<endl;
+		if(x!=y)
+			li.push_back(start);
+	 	v.clear();
+		
+    } while (next_permutation(a, a + (n-1))); 
+}
+
+public:
+    vector<TreeNode*> generateTrees(int n) {
+        if(n==0) return li;
+        int c=0;
+        n=n+1;
+        int a[n];
+        a[n-1]=100000;
+        for(int i=0;i<n-1;i++)
+        {
+            a[i]=i+1;
+        }
+        fp(a,n);
+
+        return li;
+    }
+};

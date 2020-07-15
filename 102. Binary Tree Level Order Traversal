@@ -1,0 +1,54 @@
+class Solution {
+    vector<vector<int>> ans;
+    
+    void bfs(TreeNode* root)
+    {
+        queue<TreeNode* > q;
+        
+        if(root!=NULL)
+        {
+            q.push(root);
+            // cout<<tp->val<<endl;
+            //q.pop();
+            vector<int> an;
+            queue<TreeNode* > nq;
+            while(q.empty()==false)
+            {
+                TreeNode* tp = q.front();
+                
+                an.push_back(tp->val);
+                cout<<tp->val<<endl;
+                q.pop();
+                if(tp->left!=NULL)
+                {
+                    nq.push(tp->left);
+                }
+                if(tp->right!=NULL)
+                {
+                    nq.push(tp->right);   
+                }
+                if(q.empty())
+                {
+                    cout<<"swap"<<endl;
+                    while(!nq.empty())
+                    {
+                        TreeNode* temp = nq.front();
+                        q.push(temp);
+                        nq.pop();
+                    }
+                    ans.push_back(an);
+                    an.clear();
+                }
+            }
+        }
+        else
+        {
+            return ;
+        }
+    }
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        bfs(root);
+        return ans;
+    }
+};

@@ -1,0 +1,71 @@
+class Solution {
+int n;   
+int call(vector<vector<string>> &queen, int r,int c)
+{
+	for(int i=0;i<r;i++)
+		if(queen[i][c]=="Q")
+			return 0;
+	// diagonal  \ wala
+	for(int i=r,j=c;i>=0&&j>=0;i--,j--)
+	{
+		if(queen[i][j]=="Q")
+			return 0;
+	}
+	// diagonal  / wala
+	for(int i=r,j=c;i>=0&&j<n ;i--,j++)
+	{
+		if(queen[i][j]=="Q")
+			return 0;
+	}	
+		
+	return 1;
+}
+void queenfun(vector<vector<string>> &sav,vector<vector<string>>  &queen ,int r)
+{
+	if(r==n)
+	{
+        vector<string> temp;
+		for(int i=0;i<n;i++)
+		{
+            string s="";
+			for(int j=0;j<n;j++)
+			{
+				s=s+queen[i][j];
+			}
+            temp.push_back(s);
+			//cout<<endl;
+		}
+        sav.push_back(temp);
+		//cout<<endl;
+		return ;
+	}
+	for(int i=0;i<n;i++)
+	{
+		//cout<<"r= "<<r<<" "<<i<<endl;
+		if(call(queen,r,i))
+		{
+			queen[r][i] = "Q";
+			queenfun(sav,queen,r+1);
+			queen[r][i] = ".";
+		//	cout<<"out"<<endl;
+		}
+	}
+}
+public:
+    vector<vector<string>> solveNQueens(int nl) {
+    vector<vector<string>> queen(nl,vector<string>(nl));
+    n=nl;
+    vector<vector<string>> sav;
+    //cout<<"start"<<endl;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			queen[i][j]=".";
+		}
+		
+	}
+	queenfun(sav,queen,0);
+	    return sav;   
+    }
+};

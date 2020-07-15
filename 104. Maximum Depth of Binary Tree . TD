@@ -1,0 +1,26 @@
+class Solution {
+    int mdepth=0;
+    void fun(TreeNode* root,int d)
+    {
+        //if(root==NULL) return ;
+        if(root->left==NULL&&root->right==NULL)
+        {
+            mdepth= max(mdepth,d);
+        }
+            
+        if(root->left)
+            fun(root->left ,d+1);
+        if(root->right)
+            fun(root->right ,d+1);
+    }
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+         fun(root,1);
+        return mdepth;
+    }
+};
+
+///////////////////////////////////////////////////////
+
+

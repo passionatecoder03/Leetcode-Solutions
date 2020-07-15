@@ -1,0 +1,24 @@
+class Solution {
+    TreeNode* ntree = new TreeNode();
+    TreeNode* ret = ntree;
+    TreeNode* fun(TreeNode* root) 
+    {
+        if(root)
+        {
+            cout<<root->val<<" ";
+            ntree->right = new TreeNode(root->val);
+            ntree=ntree->right;
+            root->right = fun(root->left);
+            root->right = fun(root->right);
+        }
+        return root;
+    }
+public:
+    void flatten(TreeNode* root) {
+        if(!root) return ;
+        fun(root);
+        root->left=NULL;
+        //root->right = ret->right->right;
+    }
+    
+};

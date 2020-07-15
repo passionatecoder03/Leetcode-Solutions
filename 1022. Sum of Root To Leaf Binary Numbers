@@ -1,0 +1,17 @@
+// my first self made rec
+class Solution {
+    int sum=0,temp=0;
+    int dfs(TreeNode* root,int v)
+    {
+          if(!root) return 0; 
+          v= v*2 + root->val;
+         if(root->left==NULL&&root->right==NULL) return v;
+
+        return dfs(root->left,v) + dfs(root->right,v) ;  
+    }
+public:
+    int sumRootToLeaf(TreeNode* root) {
+        if(!root) return 0;
+        return dfs(root,0);
+    }
+};

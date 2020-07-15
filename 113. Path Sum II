@@ -1,0 +1,35 @@
+class Solution {
+    vector<vector<int> > ans;
+    vector<int>  x;
+    int sum=0;
+public:
+    vector<vector<int>> pathSum(TreeNode* tp, int k) {
+        if(tp==NULL)   
+        {
+            return ans;
+        }
+        else
+        {
+            x.push_back(tp->val);
+            sum+=tp->val;
+        
+            //cout<<tp->val<<endl;
+
+            if(tp->left!=NULL)
+                 pathSum(tp->left,k);
+
+            if(tp->right!=NULL)
+                 pathSum(tp->right,k);
+        
+            if(tp->right==NULL&&tp->left==NULL)
+            {
+                if(sum==k)
+                ans.push_back(x);
+            }
+
+            sum=sum-x.back();
+            x.pop_back();
+        }
+        return ans;
+    }
+};

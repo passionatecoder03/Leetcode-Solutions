@@ -1,0 +1,18 @@
+class Solution {
+    int flag=0;
+public:
+    TreeNode* searchBST(TreeNode* root, int val) {
+        if(!root) return root;
+        //cout<<root->val<<endl;
+        if(root->val > val&&flag!=1)
+           return searchBST(root->left,val);
+        else if(root->val < val&&flag!=1)
+           return searchBST(root->right,val);
+        else
+        {
+            flag=1;
+            return root;   
+        }
+            
+    }
+};

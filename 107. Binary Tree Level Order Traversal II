@@ -1,0 +1,26 @@
+class Solution {
+    
+     int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        return max(maxDepth(root->left),maxDepth(root->right))+1;
+    }
+    void bfs(TreeNode* root,vector<vector<int>> &ans,int l)
+    {
+        if(root)
+        {
+            ans[l].push_back(root->val);
+            bfs(root->left,ans,l+1);
+            bfs(root->right,ans,l+1);
+        }
+    }
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> ans;
+        int md = maxDepth(root);
+            cout<<md<<endl;
+        ans.resize(md);
+         bfs(root , ans,0);
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};

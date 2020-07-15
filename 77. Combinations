@@ -1,0 +1,31 @@
+class Solution {
+    int r;
+    vector<int> x;
+    void solve(vector<vector<int>> &sav,int s,int e,int ind,int n)
+    {
+        if (ind==r)
+        {
+            sav.push_back(x);
+           // cout<<"in"<<endl;
+            return ;
+        }
+        else
+        {
+            for(int i=s;i<=e;i++)
+            {
+                x.push_back(i+1);
+                solve(sav,i+1,e,ind+1,n);
+                x.pop_back();
+            }
+        }
+    }
+public:
+    vector<vector<int>> combine(int n, int k)
+    {
+        vector<vector<int>> sav;
+        if(n<k) return sav;
+        r=k;
+        solve(sav,0,n-1,0,n);
+        return sav;
+    }
+};

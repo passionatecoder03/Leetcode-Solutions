@@ -1,0 +1,55 @@
+class Solution {
+    vector<int> ans1;
+    vector<int> ans2;
+    
+    void fun1(TreeNode* root)
+    {
+        if(root!=NULL)
+        {
+            ans1.push_back(root->val);
+            if(root->left==NULL&&root->right!=NULL) ans1.push_back(NULL);
+            fun1(root->left);
+            fun1(root->right);
+            if(root->right==NULL&&root->left!=NULL) ans1.push_back(NULL);
+        }
+    }
+    void fun2(TreeNode* root)
+    {
+        if(root!=NULL)
+        {
+            ans2.push_back(root->val); 
+            if(root->right==NULL&&root->left!=NULL) ans2.push_back(NULL);
+            fun2(root->right);
+            fun2(root->left);            
+            if(root->left==NULL&&root->right!=NULL) ans2.push_back(NULL);
+        }
+    }
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(root==NULL) return 1;
+        int i,ans=1;
+        fun1(root->left);
+        fun2(root->right);
+        // for(i=0;i<ans1.size();i++)
+        //     cout<<ans1[i]<<" ";
+        // cout<<endl;
+        // for(i=0;i<ans2.size();i++)
+        //     cout<<ans2[i]<<" ";
+        // cout<<endl;     
+        if(ans1.size()==ans2.size())
+        {
+            for(i=0;i<ans1.size();i++)
+            {
+                if(ans1[i]!=ans2[i])
+                {
+                    ans=0;
+                    break;
+                }
+            }
+        }
+        else
+            ans=0;
+        
+        return ans;
+    }
+};

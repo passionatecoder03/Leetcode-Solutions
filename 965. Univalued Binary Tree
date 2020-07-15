@@ -1,0 +1,9 @@
+class Solution {
+    int val=-1,flag=1;
+public:
+    bool isUnivalTree(TreeNode* root) {
+        if(root==NULL) return 1;
+        if(val==-1) val=root->val;
+        return root->val==val && isUnivalTree(root->left) &&isUnivalTree(root->right);
+    }
+};

@@ -1,0 +1,58 @@
+class Solution {
+    vector<vector<int>> ans;
+    
+    void diagonal(TreeNode* root)
+    {
+        queue<TreeNode* > q1;
+        queue<TreeNode* > q2;
+        q1.push(root);
+        root=root->right;
+        vector<int> x;
+        while(!q1.empty()||!q2.empty())
+        {
+            while(root!=NULL)
+            {
+                //cout<<"uppush "<<root->val<<endl;
+                q1.push(root);
+                root = root->right;
+            }
+                root = q1.front();
+                q1.pop();
+                //cout<<"pop= "<<root->val<<endl;
+                x.push_back(root->val);
+           if(root->left)
+           {
+                root=root->left;
+                q2.push(root);
+                //cout<<"push= "<<root->val<<endl;
+                 root=root->right;
+           }
+            else
+                root=NULL;
+            
+            while(root!=NULL)
+            {
+                //cout<<"downpush "<<root->val<<endl;
+                q2.push(root);
+                root = root->right;
+            }
+            if(q1.empty())
+            {
+                //cout<<"in"<<endl;
+                ans.push_back(x);
+                x.clear();
+                //q1=q2;
+                while(!q2.empty())
+                {
+                    q1.push(q2.front());
+                    q2.pop();
+                }
+            }
+        }
+    }
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        diagonal(root);
+        return ans;
+    }
+};

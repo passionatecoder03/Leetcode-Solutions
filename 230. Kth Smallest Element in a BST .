@@ -1,0 +1,19 @@
+class Solution {
+    
+    void inorder(TreeNode* root, int k,int & l, int & ans)
+    {
+        if(!root) return ;
+            inorder(root->left, k ,l ,ans);
+                l++;
+                cout<<l<<" "<<root->val<<endl;
+                if(l==k)
+                    ans=root->val;
+            inorder(root->right, k ,l ,ans);
+    }
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        int ans=-1,l=0;
+        inorder(root ,  k ,l ,ans);
+        return ans;
+    }
+};

@@ -1,0 +1,73 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+	int val;
+	Node *left,*right;
+	int lcount;
+	Node(int x)
+	{
+		val = x;
+		left = right = NULL;
+		lcount = 0;
+	}	
+};
+
+void insert(Node * &root, int x)
+{
+	if(root==NULL)
+	{
+		root = new Node (x);
+		return ;
+	}
+		
+	if(x < root->val)
+	{
+		//cout<<"up"<<endl;
+		insert(root->left,x);
+		root->lcount++;
+	}
+	else
+	{
+		//cout<<"down"<<endl;
+		insert(root->right,x);
+		return ;	
+	}
+}
+
+Node * kthsmall(Node * &root, int k)
+{
+	if(root==NULL)
+		return NULL;
+	cout<<root->val<<endl;
+	int count = root->lcount + 1;
+	if(count == k)
+		return root;
+	if(count > k)
+		return kthsmall(root->left,k);
+	return kthsmall(root->right,k-count);	
+}
+
+int main()
+{
+	Node* root = NULL;
+	int n,x;
+	cin>>n;
+	while(n--)
+	{
+		cin>>x;
+		insert(root,x);
+	}
+	int k;
+	cout<<"kth= ";
+	cin>>k;
+	Node * res = kthsmall(root,k);
+	if(res == NULL)
+		cout<<"no"<<endl;
+	else
+		cout<<"kth element = "<<res->val<<endl;
+	
+	
+	return 0;
+}
